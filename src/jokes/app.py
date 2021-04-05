@@ -1,15 +1,13 @@
+import logging
 import sys
+from logging.handlers import RotatingFileHandler
 
 from flask import Flask, has_request_context, request
+from flask_jwt_extended import JWTManager, get_jwt_identity, verify_jwt_in_request
 from werkzeug.contrib.fixers import ProxyFix
 
-from flask_jwt_extended import JWTManager, get_jwt_identity, verify_jwt_in_request
 from jokes.config import DB_DSN
-
 from jokes.views import api
-
-import logging
-from logging.handlers import RotatingFileHandler
 
 
 class RequestFormatter(logging.Formatter):
@@ -20,6 +18,7 @@ class RequestFormatter(logging.Formatter):
             record.user_id = None
 
         return super().format(record)
+
 
 def create_app():
     file_handler = RotatingFileHandler('app.log', maxBytes=100000, backupCount=3)
@@ -54,4 +53,3 @@ def create_app():
     api.init_app(app)
 
     return app
-

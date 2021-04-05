@@ -1,13 +1,14 @@
-from jokes.db import create_user, check_password, joke_create_by_user, joke_get_all_by_user_id, \
-    joke_get_by_id, JokeBadUserException, get_user_id_by_login, joke_update_by_id, remove_user_joke, JokeBadJokeException
-from flask_restx import Api, Resource, fields
-from flask_jwt_extended import jwt_required
 from flask_jwt_extended import create_access_token
-import requests
-from werkzeug.exceptions import BadRequest, InternalServerError, Forbidden
 from flask_jwt_extended import get_jwt_identity
-from flask import request
-from jokes.config import REQUESTS_TIMEOUT
+from flask_jwt_extended import jwt_required
+from flask_restx import Api, Resource, fields
+from werkzeug.exceptions import BadRequest, InternalServerError, Forbidden
+
+from jokes.db import create_user, check_password, joke_create_by_user, joke_get_all_by_user_id, \
+    joke_get_by_id, JokeBadUserException, get_user_id_by_login, joke_update_by_id, remove_user_joke, \
+    JokeBadJokeException
+from jokes.externalApi import ExternalApiException
+from jokes.externalApi import GeekJokesAPI
 
 # flask_restx doesn't support swagger 3.0 with bearerAuth :(
 authorizations = {
@@ -167,10 +168,9 @@ class RandomJoke(Resource):
     def get(self):
         user_id = get_jwt_identity()
         try:
-            joke = requests.get("https://geek-jokes.sameerkumar.website/api", timeout=REQUESTS_TIMEOUT)
-        except requests.exceptions.RequestException as e:
+            joke_text = GeekJokesAPI.get_joke()
+        except ExternalApiException as e:
             raise InternalServerError(f'external API error: {e}')
-        joke_text = joke.text
         joke_id = joke_create_by_user(user_id, joke_text)
         return {'id': joke_id,
                 'text': joke_text}, 200
