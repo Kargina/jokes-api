@@ -3,7 +3,7 @@
 
 ## Description
 
-Simple application, which provide API to operate with jokes.
+Simple application, which provides API to operate with jokes.
 
 Written in Python with Flask.
 
