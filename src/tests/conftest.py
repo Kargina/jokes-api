@@ -8,6 +8,7 @@ from jokes.db import create_user, joke_create_by_user
 
 TEST_SECRET = 'test-secret'
 BOB_JOKES = ['bob first joke', 'bob second joke']
+BOB_JOKE_ID = 1
 
 def fill_db():
     db.db.drop_all()

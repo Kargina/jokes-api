@@ -47,19 +47,9 @@ def create_app():
 
     app.config["JWT_SECRET_KEY"] = "super-secret"
     app.config["JWT_IDENTITY_CLAIM"] = "user_id"
+    app.config["PROPAGATE_EXCEPTIONS"] = True
 
     jwt = JWTManager(app)
-
-    # https://github.com/vimalloc/flask-jwt-extended/issues/86#issuecomment-335509456
-    jwt._set_error_handler_callbacks(api)
-
-    @jwt.invalid_token_loader
-    def incorrect_token(callback):
-        return {'message': 'Bad token format'}, 400
-
-    @jwt.unauthorized_loader
-    def incorrect_token(callback):
-        return {'message': 'Missing Bearer token in Authorization header'}, 400
 
     api.init_app(app)
 

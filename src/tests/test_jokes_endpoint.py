@@ -54,4 +54,4 @@ class TestJokesEndpoint():
             'Authorization': f'Bearer qweqwe',
         }
         joke_res = client.post('/api/jokes', headers=headers, json=dict(text=joke_text))
-        assert joke_res.status_code == 400
+        assert joke_res.status_code == 422

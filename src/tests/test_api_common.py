@@ -21,15 +21,13 @@ class TestApiCommon():
     ])
     def test_method_not_allowed(self, client, endpoint):
         res = client.put('/api/user')
-        assert 'message' in res.json
         assert res.status_code == 405
 
     def test_healthcheck(self, client):
         res = client.get('/api/healthcheck')
-        assert res.json['message'] == "OK"
         assert res.status_code == 200
 
     def test_request_without_token(self, client):
         res = client.get('/api/jokes')
-        assert 'Missing' in res.json['message']
-        assert res.status_code == 400
+        assert 'Missing' in res.json['msg']
+        assert res.status_code == 401

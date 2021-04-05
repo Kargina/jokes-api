@@ -19,7 +19,7 @@ class TestAuthEndpoint():
             password='incorrect_password'
         ))
         assert "User does not exist or password incorrect" in res.json['message']
-        assert res.status_code == 400
+        assert res.status_code == 403
 
     def test_bad_login(self, client):
         res = client.post('/api/auth', json=dict(
@@ -27,4 +27,4 @@ class TestAuthEndpoint():
             password='badpassword'
         ))
         assert "User does not exist or password incorrect" in res.json['message']
-        assert res.status_code == 400
+        assert res.status_code == 403
