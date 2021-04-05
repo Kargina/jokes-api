@@ -85,7 +85,6 @@ class Auth(Resource):
     @api.expect(user)
     def post(self):
         user_login = api.payload['login']
-        print(request.remote_addr)
         password_correct = check_password(user_login,
                                           api.payload['password'])
         if password_correct:
@@ -130,7 +129,7 @@ class Joke(Resource):
     @api.response(code=400, description='Bad request')
     @api.response(code=401, description='UNAUTHORIZED')
     @api.marshal_with(response, code=200)
-    def delete(self, id):  # 7
+    def delete(self, id):
         user_id = get_jwt_identity()
         try:
             remove_user_joke(user_id=user_id, joke_id=id)

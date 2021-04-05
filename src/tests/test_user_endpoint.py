@@ -1,7 +1,7 @@
 from jokes.config import USER_MAX_LEN
 
+
 class TestUserEndpoint():
-    # user_endpoint = '/api/user'
 
     def test_create_new_user(self, client):
         res = client.post('/api/user', json=dict(

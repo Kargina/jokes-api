@@ -33,7 +33,6 @@ def check_password(login, password):
     return user.password == hashed_password
 
 def check_user(login):
-    # TODO: check lenght < 3 & can begin only with letter
     if len(login) > USER_MAX_LEN:
         raise JokeBadUserException(f'Login must be less than {USER_MAX_LEN} characters')
     if User.query.filter_by(login=login).first() is not None:

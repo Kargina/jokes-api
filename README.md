@@ -57,3 +57,4 @@ You can get token `xxx.yyy.zzz` from `/auth` endpoint
 - Use WSGI server
 - Logic for revoke tokens, refresh tokens
 - More tests
+- Move secrets from code to env or some secure storage
