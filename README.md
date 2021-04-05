@@ -10,11 +10,11 @@ Written in Python with Flask.
 ## Specification
 REST service provides:
 - User registration
-- User autharisation
+- User authorisation
 - Joke creation for user
 - Get all user jokes
 - User joke update / delete
-- Get random joke from external service
+- Get a random joke from external service
 - Requests logging
 
 ## Run tests
