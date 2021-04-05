@@ -58,3 +58,4 @@ You can get token `xxx.yyy.zzz` from `/auth` endpoint
 - Logic for revoke tokens, refresh tokens
 - More tests
 - Move secrets from code to env or some secure storage
+- Better working with external API(retries, separate class)
